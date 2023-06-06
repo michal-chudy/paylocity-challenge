@@ -5,3 +5,4 @@
 * Settings as DB tables
 * HATEOAS links
 * Javadoc
+* Exception handling
