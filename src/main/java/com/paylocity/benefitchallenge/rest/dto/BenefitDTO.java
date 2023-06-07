@@ -3,6 +3,8 @@ package com.paylocity.benefitchallenge.rest.dto;
 import com.paylocity.benefitchallenge.domain.Benefit;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class BenefitDTO {
 
@@ -13,6 +15,9 @@ public class BenefitDTO {
     @NotNull
     private Benefit.BenefitType benefitType;
     private Long dependentId;
+
+    private Long deductionAmountCents;
+    private BigDecimal deductionAmountDollars;
 
     public Long getId() {
         return id;
@@ -44,5 +49,22 @@ public class BenefitDTO {
 
     public void setDependentId(Long dependentId) {
         this.dependentId = dependentId;
+    }
+
+    public Long getDeductionAmountCents() {
+        return deductionAmountCents;
+    }
+
+    public void setDeductionAmountCents(Long deductionAmountCents) {
+        this.deductionAmountCents = deductionAmountCents;
+        this.deductionAmountDollars = new BigDecimal(deductionAmountCents).divide(BigDecimal.valueOf(100),2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal getDeductionAmountDollars() {
+        return deductionAmountDollars;
+    }
+
+    public void setDeductionAmountDollars(BigDecimal deductionAmountDollars) {
+        this.deductionAmountDollars = deductionAmountDollars;
     }
 }
