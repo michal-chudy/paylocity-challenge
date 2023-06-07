@@ -28,10 +28,6 @@ public class Benefit {
     @Column(name = "benefit_type", length = 20, nullable = false)
     private BenefitType benefitType;
 
-    @NotNull
-    @Column(name = "amount", nullable = false)
-    private Long amount;
-
     @ManyToOne
     @JoinColumn(name = "dependent_id", referencedColumnName = "id")
     private Dependent dependent;
@@ -58,14 +54,6 @@ public class Benefit {
 
     public void setBenefitType(BenefitType benefitType) {
         this.benefitType = benefitType;
-    }
-
-    public Long getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Long amount) {
-        this.amount = amount;
     }
 
     public Dependent getDependent() {
@@ -95,7 +83,6 @@ public class Benefit {
                 .append("id", id)
                 .append("employee", employee)
                 .append("benefitType", benefitType)
-                .append("amount", amount)
                 .append("dependent", dependent)
                 .toString();
     }

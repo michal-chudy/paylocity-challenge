@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Objects;
 
 /**
@@ -16,6 +17,7 @@ import java.util.Objects;
 @ControllerAdvice
 public class ExceptionTranslator {
 
+    private static final String ERR_NOT_FOUND = "error.notFound";
     private static final String ERR_VALIDATION = "error.validation";
     private static final String ERR_VALIDATION_FIELD = "error.validation.field";
 
@@ -32,5 +34,12 @@ public class ExceptionTranslator {
     public ErrorDTO processValidationError(MethodArgumentNotValidException ex) {
         BindingResult result = ex.getBindingResult();
         return new ErrorDTO(ERR_VALIDATION_FIELD, Objects.requireNonNull(result.getFieldError()).getField());
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseBody
+    public ErrorDTO processEntityNotFoundException(EntityNotFoundException ex) {
+        return new ErrorDTO(ERR_NOT_FOUND, ex.getMessage());
     }
 }
