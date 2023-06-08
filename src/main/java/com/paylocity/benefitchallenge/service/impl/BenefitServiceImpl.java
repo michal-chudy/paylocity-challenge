@@ -49,13 +49,21 @@ public class BenefitServiceImpl implements BenefitService {
         if (DEPENDENT.equals(benefitDTO.getBenefitType())) {
             benefit.setDependent(dependentService.getById(benefitDTO.getDependentId()));
         }
-        benefit.setEmployee(employeeService.getById(benefitDTO.getEmployeeId()));
+        Employee employee = employeeService.getById(benefitDTO.getEmployeeId());
+        benefit.setEmployee(employee);
         benefit = benefitRepository.save(benefit);
 
         payrollService.addPayrollBenefit(benefit, calculateBenefitDeductionsInternal(benefit.getEmployee()));
 
-        // TODO add deductions to DTO
-        return benefitMapper.benefitToBenefitDto(benefit);
+        BenefitsSettings benefitsSettings = settingsService.getBenefitsSettings();
+        BenefitDiscountSettings benefitDiscountSettings = settingsService.getBenefitDiscountSettings();
+        EmployeeSalary employeeSalary = employee.getEmployeeSalary().get(0);
+
+        BenefitDTO response = benefitMapper.benefitToBenefitDto(benefit);
+        response.setDeductionAmountCents(calculateBenefitDeduction(benefit, employeeSalary.getAnnualPayrollCount(),
+                benefitsSettings, benefitDiscountSettings, employee));
+
+        return response;
     }
 
     @Override
@@ -70,8 +78,8 @@ public class BenefitServiceImpl implements BenefitService {
 
         return benefitRepository.getAllByEmployeeId(employeeId).stream().map(benefit -> {
             BenefitDTO benefitDTO = benefitMapper.benefitToBenefitDto(benefit);
-            benefitDTO.setDeductionAmountCents(calculateBenefitDeduction(benefit.getBenefitType(), employeeSalary.getAnnualPayrollCount(),
-                    settingsService.getBenefitsSettings(), settingsService.getBenefitDiscountSettings(), employee, benefit.getDependent()));
+            benefitDTO.setDeductionAmountCents(calculateBenefitDeduction(benefit, employeeSalary.getAnnualPayrollCount(),
+                    settingsService.getBenefitsSettings(), settingsService.getBenefitDiscountSettings(), employee));
             return benefitDTO;
         }).collect(Collectors.toList());
     }
@@ -84,15 +92,17 @@ public class BenefitServiceImpl implements BenefitService {
         EmployeeSalary employeeSalary = employee.getEmployeeSalary().get(0);
 
         return benefitRepository.getAllByEmployeeId(employee.getId()).stream()
-                .mapToLong(benefit -> calculateBenefitDeduction(benefit.getBenefitType(), employeeSalary.getAnnualPayrollCount(),
-                        benefitsSettings, benefitDiscountSettings, employee, benefit.getDependent()))
+                .mapToLong(benefit -> calculateBenefitDeduction(benefit, employeeSalary.getAnnualPayrollCount(),
+                        benefitsSettings, benefitDiscountSettings, employee))
                 .sum();
     }
     
-    private long calculateBenefitDeduction(Benefit.BenefitType benefitType, Integer annualPayrollCount, BenefitsSettings benefitsSettings,
-                                           BenefitDiscountSettings benefitDiscountSettings, Employee employee, Dependent dependent) {
+    private long calculateBenefitDeduction(Benefit benefit, Integer annualPayrollCount, BenefitsSettings benefitsSettings,
+                                           BenefitDiscountSettings benefitDiscountSettings, Employee employee) {
         long benefitDeductionAmount;
         double benefitMultiplier = 1.0;
+        Benefit.BenefitType benefitType = benefit.getBenefitType();
+        Dependent dependent = benefit.getDependent();
 
         if (EMPLOYEE.equals(benefitType)) {
             benefitDeductionAmount = benefitsSettings.getAmountPerEmployee() / annualPayrollCount;
