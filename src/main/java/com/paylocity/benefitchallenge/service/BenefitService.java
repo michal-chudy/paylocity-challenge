@@ -8,7 +8,5 @@ public interface BenefitService {
 
     BenefitDTO createBenefit(BenefitDTO benefitDTO);
 
-    Long calculateBenefitDeductionsPerPayroll(Long employeeId);
-
     List<BenefitDTO> getAllByEmployee(Long emplyeeId);
 }

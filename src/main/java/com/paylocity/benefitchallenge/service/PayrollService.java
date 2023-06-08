@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PayrollService {
 
-    Payroll addPayrollBenefit(Benefit benefit, Long totalBenefitDeductions);
+    Payroll addPayrollBenefit(Benefit benefit);
 
     List<PayrollDTO> getPayrollsForEmployee(Long employeeId, Payroll.PayrollStatus payrollStatus);
 }
