@@ -12,7 +12,6 @@ import com.paylocity.benefitchallenge.rest.dto.BenefitDTO;
 import com.paylocity.benefitchallenge.service.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.plugin.dom.exception.InvalidStateException;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -115,7 +114,7 @@ public class BenefitServiceImpl implements BenefitService {
                 benefitMultiplier -= benefitDiscountSettings.getPercentage();
             }
         } else {
-            throw new InvalidStateException("Unknown benefit type: " + benefitType);
+            throw new IllegalStateException("Unknown benefit type: " + benefitType);
         }
 
         return (long) (benefitDeductionAmount * benefitMultiplier);

@@ -1,10 +1,10 @@
 package com.paylocity.benefitchallenge.rest.dto;
 
+import com.paylocity.benefitchallenge.CurrencyUtils;
 import com.paylocity.benefitchallenge.domain.Benefit;
 
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class BenefitDTO {
 
@@ -57,7 +57,7 @@ public class BenefitDTO {
 
     public void setDeductionAmountCents(Long deductionAmountCents) {
         this.deductionAmountCents = deductionAmountCents;
-        this.deductionAmountDollars = new BigDecimal(deductionAmountCents).divide(BigDecimal.valueOf(100),2, RoundingMode.HALF_UP);
+        this.deductionAmountDollars = CurrencyUtils.getDollarValue(deductionAmountCents);
     }
 
     public BigDecimal getDeductionAmountDollars() {
