@@ -5,15 +5,15 @@ package com.paylocity.benefitchallenge.domain.settings;
  */
 public class BenefitDiscountSettings {
 
-    private Integer percentage;
+    private Double percentage;
     private String ruleNamePrefix;
 
-    public BenefitDiscountSettings(Integer percentage, String ruleNamePrefix) {
+    public BenefitDiscountSettings(Double percentage, String ruleNamePrefix) {
         this.percentage = percentage;
         this.ruleNamePrefix = ruleNamePrefix;
     }
 
-    public Integer getPercentage() {
+    public Double getPercentage() {
         return percentage;
     }
 

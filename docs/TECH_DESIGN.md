@@ -16,7 +16,7 @@ rather than the state at the time the employee entered it.
 * All employees are paid $2000 per paycheck before deductions
 * There are 26 paychecks in a year
 * Benefit discount is cumulative. If both, the employee's name and their dependent's name start with `A` they get a discount of each linked benefit.
-* All amounts are in US Dollars
+* All amounts are in **US Cents**
 * I assume that a new Payroll object is created automatically by the system after the last Payroll has been completed. 
 So there is always exactly one payroll instance in the `DRAFT` state for each employee.
 

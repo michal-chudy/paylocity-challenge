@@ -10,9 +10,9 @@ import javax.annotation.PostConstruct;
 @Service
 public class SettingsServiceImpl implements SettingsService {
 
-    private static final Long ANNUAL_AMOUNT_PER_EMPLOYEE = 1000L;
-    private static final Long ANNUAL_AMOUNT_PER_DEPENDENT = 500L;
-    private static final int DEFAULT_DISCOUNT_PERCENTAGE = 10;
+    private static final Long ANNUAL_AMOUNT_PER_EMPLOYEE = 100000L;
+    private static final Long ANNUAL_AMOUNT_PER_DEPENDENT = 50000L;
+    private static final double DEFAULT_DISCOUNT_PERCENTAGE = 0.1;
     private static final String DEFAULT_NAME_PREFIX_RULE = "A";
 
     private BenefitsSettings benefitsSettings;

@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Objects;
 
 @Table
@@ -21,6 +22,10 @@ public class Employee {
     @NotNull
     @Column(name = "last_name", nullable = false)
     private String lastName;
+
+    @OneToMany(mappedBy = "employee")
+    @org.hibernate.annotations.OrderBy(clause = "id desc")
+    private List<EmployeeSalary> employeeSalary;
 
     public Long getId() {
         return id;
@@ -44,6 +49,14 @@ public class Employee {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<EmployeeSalary> getEmployeeSalary() {
+        return employeeSalary;
+    }
+
+    public void setEmployeeSalary(List<EmployeeSalary> employeeSalary) {
+        this.employeeSalary = employeeSalary;
     }
 
     @Override

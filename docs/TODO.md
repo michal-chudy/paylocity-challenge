@@ -5,3 +5,8 @@
 * Settings as DB tables
 * HATEOAS links
 * Javadoc
+* logging
+* caching - Settings objects
+* authorization - only admin and the employee can enter benefits related to a particular Employee
+* adding benefits - validation that only one benefit of type EMPLOYEE can exist per employee
+* unit tests
