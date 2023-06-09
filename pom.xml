@@ -18,6 +18,7 @@
 		<java.version>1.8</java.version>
 		<javax-inject.version>1</javax-inject.version>
 		<mapstruct.version>1.5.3.Final</mapstruct.version>
+		<springdoc-openapi-ui.version>1.6.15</springdoc-openapi-ui.version>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
@@ -48,6 +49,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- Swagger UI -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>${springdoc-openapi-ui.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-data-rest</artifactId>
+			<version>${springdoc-openapi-ui.version}</version>
 		</dependency>
 
 		<!-- Other -->

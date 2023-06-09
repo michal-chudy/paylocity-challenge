@@ -1,5 +1,18 @@
 spring:
+  datasource:
+    url: jdbc:h2:mem:paylocity
   jpa:
     defer-datasource-initialization: true
   h2:
     console.enabled: true
+
+# ===================================================================
+# Swagger UI
+# ===================================================================
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+  packages-to-scan: com.paylocity.benefitchallenge.rest

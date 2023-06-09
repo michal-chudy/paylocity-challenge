@@ -1,4 +1,4 @@
-* DB performance optimisation - indexes
+* DB performance optimisation - indexes (payroll -> payroll status + employeeId)
 * Versioning system (cloning current versions of entities and archiving the old ones)
 * Rules - cut out into its own entity
 * Multi-currency for payroll/benefits etc.
@@ -7,6 +7,10 @@
 * Javadoc
 * logging
 * caching - Settings objects
+* authentication
 * authorization - only admin and the employee can enter benefits related to a particular Employee
 * adding benefits - validation that only one benefit of type EMPLOYEE can exist per employee
 * unit tests
+* API performance monitoring
+* API documentation - swagger annotations
+* auditing
