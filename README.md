@@ -43,6 +43,7 @@ as the command will download all the dependencies from the maven repo.
 ## Interaction with the application
 * The application includes a generated SwaggerUI for interactions with the APIs. Alternatively, you can use Postman or any other 
 API development tool.
+* See "Dev setup" above for identifiers of objects already pre-populated in the DB
 * Once the application is running, visit [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) in a web browser. 
 You can send requests to the APIs directly from the SwaggerUI:
     * Expand the API you'd like to test
